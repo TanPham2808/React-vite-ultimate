@@ -38,9 +38,6 @@ const App = () => {
         addNewTodo={addNewTodo}
       />
       <TodoData
-        name={hoidanIT}
-        age={age}
-        data={data}
         todoList={todoList}
       />
       <div className='todo-image'>
