@@ -17,6 +17,7 @@ const TodoNew = (props) => {
     const handleOnClick = () => {
         // Thực thi function của thằng cha truyền vào
         addNewTodo(valueInput);
+        setValueInput("")
     }
 
     return (
@@ -24,6 +25,7 @@ const TodoNew = (props) => {
             <input
                 type="text"
                 onChange={(event) => { handleOnChange(event.target.value) }}
+                value={valueInput}
             />
             <button onClick={handleOnClick}>Add</button>
             <div>My name is {valueInput}</div>
