@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { createUserAPI } from '../../services/api.services';
 
 
-const UserForm = () => {
+const UserForm = (props) => {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const { loadUser } = props;
 
     const handleSubmit = async () => {
         const res = await createUserAPI(fullName, email, password, phoneNumber)
@@ -18,13 +19,22 @@ const UserForm = () => {
                 message: "Create user",
                 description: "Tạo user thành công"
             })
-            setIsModalOpen(false);
+            resetAndCloseModel();
+            await loadUser();
         } else {
             notification.error({
                 message: "Error create user",
                 description: JSON.stringify(res.message)
             })
         }
+    }
+
+    const resetAndCloseModel = () => {
+        setIsModalOpen(false);
+        setFullName("");
+        setEmail("");
+        setPassword("");
+        setPhoneNumber("");
     }
 
     return (
@@ -43,7 +53,7 @@ const UserForm = () => {
                 title="Create User"
                 open={isModalOpen}
                 onOk={() => { handleSubmit() }}
-                onCancel={() => { setIsModalOpen(false) }}
+                onCancel={() => { resetAndCloseModel() }}
                 maskClosable={false}
                 okText={"Create"}
             >
