@@ -7,7 +7,7 @@ const UserTable = (props) => {
     const { dataUser, loadUser } = props;
 
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
-    const [dateUpdate, setDataUpdate] = useState(null);
+    const [dataUpdate, setDataUpdate] = useState(null);
 
     const columns = [
         {
@@ -58,7 +58,7 @@ const UserTable = (props) => {
             <UpdateUserModel
                 isModalUpdateOpen={isModalUpdateOpen}
                 setIsModalUpdateOpen={setIsModalUpdateOpen}
-                dateUpdate={dateUpdate}
+                dataUpdate={dataUpdate}
                 setDataUpdate={setDataUpdate}
                 loadUser={loadUser}
             />

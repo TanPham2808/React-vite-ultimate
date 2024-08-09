@@ -7,15 +7,15 @@ const UpdateUserModel = (props) => {
     const [fullName, setFullName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
 
-    const { isModalUpdateOpen, setIsModalUpdateOpen, dateUpdate, setDataUpdate, loadUser } = props;
+    const { isModalUpdateOpen, setIsModalUpdateOpen, dataUpdate, setDataUpdate, loadUser } = props;
 
     useEffect(() => {
-        if (dateUpdate) {
-            setFullName(dateUpdate.fullName);
-            setId(dateUpdate._id);
-            setPhoneNumber(dateUpdate.phone);
+        if (dataUpdate) {
+            setFullName(dataUpdate.fullName);
+            setId(dataUpdate._id);
+            setPhoneNumber(dataUpdate.phone);
         }
-    }, [dateUpdate])
+    }, [dataUpdate])
 
     const handleSubmit = async () => {
         const res = await updateUserAPI(id, fullName, phoneNumber)
