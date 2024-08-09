@@ -1,6 +1,5 @@
-import { Input, Modal } from 'antd';
-import { Button, Flex, Drawer } from 'antd';
-import { useState, useEffect } from 'react';
+import { Input } from 'antd';
+import { Drawer } from 'antd';
 
 const DetailUserModel = (props) => {
     const { isModalDetailOpen, setIsModalDetailOpen, dataDetail, setDataDetail } = props;
