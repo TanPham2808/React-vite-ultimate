@@ -5,7 +5,10 @@ import DetailUserModel from "./detail.user.model";
 import { useState } from "react";
 
 const UserTable = (props) => {
-    const { dataUser, loadUser } = props;
+    const { dataUser, loadUser,
+        current, pageSize, total,
+        setCurrent, setPageSize
+    } = props;
 
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false)
     const [isModalDetailOpen, setIsModalDetailOpen] = useState(false)
@@ -13,6 +16,14 @@ const UserTable = (props) => {
     const [dataDetail, setDataDetail] = useState(null);
 
     const columns = [
+        {
+            title: "STT",
+            render: (_, record, index) => {
+                return (
+                    <>{(index + 1) + (current - 1) * pageSize}</>
+                );
+            }
+        },
         {
             title: 'Id',
             dataIndex: '_id',
@@ -56,12 +67,36 @@ const UserTable = (props) => {
         }
     ];
 
+    const onChange = (pagination, filters, sorter, extra) => {
+        if (pagination && pagination.current) {
+            if (+pagination.current !== +current) {
+                setCurrent(+pagination.current) //Convert từ string sang number
+            }
+        }
+
+        //nếu thay đổi tổng số phần tử : pageSize
+        if (pagination && pagination.pageSize) {
+            if (+pagination.pageSize !== +pageSize) {
+                setPageSize(+pagination.pageSize) //"5" => 5
+            }
+        }
+    };
+
     return (
         <>
             <Table
                 columns={columns}
                 dataSource={dataUser}
                 rowKey={"_id"}
+                pagination={
+                    {
+                        current: current,
+                        pageSize: pageSize,
+                        showSizeChanger: true,
+                        total: total,
+                        showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
+                    }}
+                onChange={onChange}
             />
             <UpdateUserModel
                 isModalUpdateOpen={isModalUpdateOpen}
