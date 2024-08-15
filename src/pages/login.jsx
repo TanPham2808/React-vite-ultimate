@@ -1,12 +1,27 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { Form, Row, Col, Input, Button, Divider } from "antd";
-import { Link } from "react-router-dom";
+import { Form, Row, Col, Input, Button, Divider, message, notification } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { loginAPI } from "../services/api.services";
+import { useState } from "react";
 
 const LoginPage = () => {
 
     const [form] = Form.useForm();
-    const onFinish = (values) => {
-        console.log("Checkkkk", values)
+    const navigate = useNavigate();
+    const [isLoad, setIsLoad] = useState(false);
+
+    const onFinish = async (values) => {
+        setIsLoad(true);
+        const res = await loginAPI(values.email, values.password);
+        if (res.data) {
+            setIsLoad(false);
+            navigate("/");
+        } else {
+            notification.error({
+                message: "Error login",
+                description: JSON.stringify(res.message)
+            })
+        }
     }
 
     return (
@@ -60,7 +75,10 @@ const LoginPage = () => {
                                 justifyContent: "space-between",
                                 alignItems: "center"
                             }}>
-                                <Button type="primary" onClick={() => form.submit()}>
+                                <Button
+                                    loading={isLoad}
+                                    type="primary"
+                                    onClick={() => form.submit()}>
                                     Login
                                 </Button>
                                 <Link to="/">Go to homepage <ArrowRightOutlined /></Link>
