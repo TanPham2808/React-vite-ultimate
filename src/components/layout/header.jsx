@@ -12,10 +12,8 @@ const Header = () => {
 
     // Data đã được nạp useContext lúc login
     const { user } = useContext(AuthContext);
-    console.log('>>> Check data', user)
 
     const onClick = (e) => {
-        console.log('click ', e);
         setCurrent(e.key);
     };
 

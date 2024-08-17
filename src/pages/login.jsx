@@ -21,8 +21,10 @@ const LoginPage = () => {
             setIsLoad(false);
             // Lưu token vào localStorage
             localStorage.setItem("access_token", res.data.access_token);
+
             // Cập nhật thông tin user vào useContext()
             setUser(res.data.user);
+
             navigate("/");
         } else {
             notification.error({
@@ -74,7 +76,11 @@ const LoginPage = () => {
                                 },
                             ]}
                         >
-                            <Input.Password />
+                            <Input.Password
+                                onKeyDown={(event) => {
+                                    if (event.key === 'Enter') form.submit()
+                                }}
+                            />
                         </Form.Item>
 
                         <Form.Item >
