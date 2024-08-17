@@ -17,7 +17,7 @@ const App = () => {
 
   const fetchUserInfo = async () => {
     // Trạng thái loading khi Refesh F5
-    setIsAppLoading(true);
+    setIsAppLoading(false); // true sẽ là loading (tạm thời tắt)
 
     const res = await getAccountAPI();
     if (res.data) {
