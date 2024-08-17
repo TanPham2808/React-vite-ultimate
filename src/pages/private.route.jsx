@@ -30,7 +30,7 @@ const PrivateRoute = (props) => {
     );
 
     // Hoặc có thể chuyển tới trang Login
-    //return (<Navigate to="/login" replace />);
+    //return (<Navigate to="/login" />);
 }
 
 export default PrivateRoute
