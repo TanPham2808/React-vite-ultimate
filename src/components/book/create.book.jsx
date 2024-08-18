@@ -5,10 +5,11 @@ import { createBookAPI } from "../../services/api.book.services";
 const CreateBook = (props) => {
     const { loadBook } = props;
     const [modalCreateOpen, setModalCreateOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [form] = Form.useForm();
 
     const onFinish = async (values) => {
-        console.log("check data create", values)
+        setLoading(true);
         const res = await createBookAPI(
             values.mainText,
             values.author,
@@ -16,6 +17,7 @@ const CreateBook = (props) => {
             values.quantity
         )
         if (res.data) {
+            setLoading(false)
             notification.success({
                 message: "Create book",
                 description: "Thêm sách thành công"
@@ -56,7 +58,11 @@ const CreateBook = (props) => {
                 title="Create book"
                 open={modalCreateOpen}
                 onOk={() => form.submit()}
+                okButtonProps={{
+                    loading: loading
+                }}
                 onCancel={() => { setModalCreateOpen(false) }}
+                okText={"Create"}
             >
                 <Form
                     form={form}

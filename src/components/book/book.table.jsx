@@ -14,7 +14,7 @@ const BookTable = (props) => {
 
     const { dataBook, loadBook,
         current, pageSize, total,
-        setCurrent, setPageSize } = props;
+        setCurrent, setPageSize, loadingTable } = props;
 
     const onChange = (pagination, filters, sorter, extra) => {
         if (pagination && pagination.current) {
@@ -129,6 +129,7 @@ const BookTable = (props) => {
                         showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} rows</div>) }
                     }}
                 onChange={onChange}
+                loading={loadingTable}
             />;
 
             <UpdateBook

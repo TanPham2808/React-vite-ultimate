@@ -10,7 +10,11 @@ const BookPage = () => {
     const [pageSize, setPageSize] = useState(5);
     const [total, setTotal] = useState(0);
 
+    const [loadingTable, setLoadingTable] = useState(false);
+
     const loadBook = async () => {
+        setLoadingTable(true);
+
         const res = await fetchBookAPI(current, pageSize);
         if (res.data) {
             setDataBook(res.data.result);
@@ -18,6 +22,8 @@ const BookPage = () => {
             setPageSize(res.data.meta.pageSize);
             setTotal(res.data.meta.total);
         }
+
+        setLoadingTable(false);
     }
 
     useEffect(() => {
@@ -35,6 +41,7 @@ const BookPage = () => {
                 total={total}
                 setCurrent={setCurrent}
                 setPageSize={setPageSize}
+                loadingTable={loadingTable}
             />
         </div>
     )

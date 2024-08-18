@@ -32,6 +32,7 @@ const LoginPage = () => {
                 description: JSON.stringify(res.message)
             })
         }
+        setIsLoad(false);
     }
 
     return (
